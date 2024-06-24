@@ -17,20 +17,37 @@ namespace Kings_of_Knives.Scripts.Tables
 
         protected IngredientInfo _currentPlayerIngredient;
         
-        protected bool _isWasInteracted;
+        protected bool _isWasBaseInteracted;
         protected bool _isCanPutOnTheTable;
+
+        private void OnEnable()
+        {
+            var playerInventory = PlayerInventory.GetInstance();
+
+            playerInventory.PlayerInventoryChanged += SetPlayerIngredient;
+        }
+
+        private void OnDisable()
+        {
+            var playerInventory = PlayerInventory.GetInstance();
+
+            playerInventory.PlayerInventoryChanged -= SetPlayerIngredient;
+        }
 
         private void Start()
         {
             _playerInventory = PlayerInventory.GetInstance();
         }
 
+        private void SetPlayerIngredient()
+        {
+            _currentPlayerIngredient = _playerInventory.GetIngredient();
+        }
+
         public virtual void Interact()
         {
-            _isWasInteracted = false;
+            _isWasBaseInteracted = false;
 
-            _currentPlayerIngredient = _playerInventory.GetIngredient();
-            
             if (_currentPlayerIngredient != null)
             {
                 if (IngredientOnTable == null && _isCanPutOnTheTable)
@@ -43,14 +60,14 @@ namespace Kings_of_Knives.Scripts.Tables
                     ToInventory();
             }
         }
-        
+
         private void ToInventory()
         {
             _playerInventory.SetIngredient(IngredientOnTable);
 
             IngredientOnTable = null;
 
-            _isWasInteracted = true;
+            _isWasBaseInteracted = true;
             
             OnIngredientChanged?.Invoke();
         }
@@ -61,7 +78,7 @@ namespace Kings_of_Knives.Scripts.Tables
                
             _playerInventory.SetIngredient(null);
             
-            _isWasInteracted = true;
+            _isWasBaseInteracted = true;
 
             OnIngredientChanged?.Invoke();
         }

@@ -15,7 +15,7 @@ public class ContainerTable : BaseTable
 
         base.Interact();
 
-        if (_isWasInteracted == false && IngredientOnTable == null)
+        if (_isWasBaseInteracted == false && IngredientOnTable == null)
         {
             TakeFromContainer();
         }

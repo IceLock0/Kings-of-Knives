@@ -27,11 +27,9 @@ namespace Kings_of_Knives
             {
                 Debug.Log("IControllable component not founded");
             }
-        }
 
-        private void Start()
-        {
-            _playerInput = PlayerInputController.GetPlayerInput();
+            _playerInput = new PlayerInput();
+            _playerInput.Enable();
         }
 
         private void Update()

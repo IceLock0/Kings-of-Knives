@@ -7,36 +7,25 @@ using UnityEngine.InputSystem;
 
 namespace Kings_of_Knives.Scripts
 {
-    public class PlayerInteractionController : MonoBehaviour
+    public class PlayerInteractionDeterminant : MonoBehaviour
     {
         [SerializeField] private float _interactDistance;
 
         private PlayerMovementController _playerMovementController;
-        
+
         private Vector3 _lastDirection;
 
         private IInteractable _lastInteract;
 
-        private PlayerInput _playerInput;
-        private bool _isActionAdded = false;
+        private IHoldingInteractable _lastHoldingInteract;
+        
+        public IInteractable LastInteract => _lastInteract;
+
+        public IHoldingInteractable LastHoldingInteract => _lastHoldingInteract;
         
         private void Awake()
         {
             _playerMovementController = GetComponent<PlayerMovementController>();
-            
-            _playerInput = PlayerInputController.GetPlayerInput();
-        }
-
-        private void Start()
-        {
-            if (!_isActionAdded)
-            {
-                _playerInput = PlayerInputController.GetPlayerInput();
-                
-                _playerInput.Gameplay.Interaction.performed += OnInteractPerformed;
-                
-                _isActionAdded = true;
-            }
         }
 
         private void Update()
@@ -58,6 +47,11 @@ namespace Kings_of_Knives.Scripts
                     interactable.CanInteract = true;
 
                     _lastInteract = interactable;
+
+                    if (hit.transform.TryGetComponent(out IHoldingInteractable secondaryInteractable))
+                    {
+                        _lastHoldingInteract = secondaryInteractable;
+                    }
                 }
                 else
                 {
@@ -71,26 +65,6 @@ namespace Kings_of_Knives.Scripts
                     _lastInteract.CanInteract = false;
             }
         }
-        
-        private void OnInteractPerformed(InputAction.CallbackContext obj)
-        {
-            if (_lastInteract != null && _lastInteract.CanInteract == true)
-                _lastInteract.Interact();
-        }
-        
-        private void OnEnable()
-        {
-            if (PlayerInputController.GetPlayerInput() != null)
-            {
-                _playerInput.Gameplay.Interaction.performed += OnInteractPerformed;
-                _isActionAdded = true;
-            }
-        }
 
-        private void OnDisable()
-        {
-            _playerInput.Gameplay.Interaction.performed -= OnInteractPerformed;
-            _isActionAdded = false;
-        }
     }
 }

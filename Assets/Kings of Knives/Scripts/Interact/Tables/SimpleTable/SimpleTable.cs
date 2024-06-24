@@ -1,4 +1,6 @@
-﻿namespace Kings_of_Knives.Scripts.Tables
+﻿using UnityEngine;
+
+namespace Kings_of_Knives.Scripts.Tables
 {
     public class SimpleTable : BaseTable
     {

@@ -14,6 +14,7 @@ namespace Kings_of_Knives.Scripts
         [SerializeField] private bool _isCanTake;
         [SerializeField] private bool _isCanPutOnSimpleTable;
         [SerializeField] private bool _isCanPutOnContainerTable;
+        [SerializeField] private bool _isCanPutOnCuttingTable;
 
         public Sprite SpriteIcon => _spriteIcon;
 
@@ -23,7 +24,7 @@ namespace Kings_of_Knives.Scripts
         
         public bool IsCanTake => _isCanTake;
         public bool IsCanPutOnSimpleTable => _isCanPutOnSimpleTable;
-
         public bool IsCanPutOnContainerTable => _isCanPutOnContainerTable;
+        public bool IsCanPutOnCuttingTable => _isCanPutOnCuttingTable;
     }
 }

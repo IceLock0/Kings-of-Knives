@@ -45,6 +45,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldingInteraction"",
+                    ""type"": ""Button"",
+                    ""id"": ""17a9f874-59f4-47f4-a29f-a3e04cda8e3f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -113,6 +122,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5cda72f2-3d97-4ec4-b40e-f075d9ea7b46"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Mouse and Keyboard"",
+                    ""action"": ""HoldingInteraction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -140,6 +160,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_Interaction = m_Gameplay.FindAction("Interaction", throwIfNotFound: true);
+        m_Gameplay_HoldingInteraction = m_Gameplay.FindAction("HoldingInteraction", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -208,12 +229,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_Interaction;
+    private readonly InputAction m_Gameplay_HoldingInteraction;
     public struct GameplayActions
     {
         private @PlayerInput m_Wrapper;
         public GameplayActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @Interaction => m_Wrapper.m_Gameplay_Interaction;
+        public InputAction @HoldingInteraction => m_Wrapper.m_Gameplay_HoldingInteraction;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -229,6 +252,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
+            @HoldingInteraction.started += instance.OnHoldingInteraction;
+            @HoldingInteraction.performed += instance.OnHoldingInteraction;
+            @HoldingInteraction.canceled += instance.OnHoldingInteraction;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -239,6 +265,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
+            @HoldingInteraction.started -= instance.OnHoldingInteraction;
+            @HoldingInteraction.performed -= instance.OnHoldingInteraction;
+            @HoldingInteraction.canceled -= instance.OnHoldingInteraction;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -269,5 +298,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+        void OnHoldingInteraction(InputAction.CallbackContext context);
     }
 }
