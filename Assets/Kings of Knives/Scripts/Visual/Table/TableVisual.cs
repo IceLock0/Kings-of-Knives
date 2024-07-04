@@ -36,8 +36,11 @@ namespace Kings_of_Knives.Scripts
             if (_table.IngredientOnTable == null)
                 ClearTable();
 
-            if (_table.IngredientOnTable != null && _table.IngredientOnTable.Prefab != _lastIngredientPrefab)
+            if (_table.IngredientOnTable != null && _table.IngredientOnTable.IngredientInfo.Prefab != _lastIngredientPrefab)
+            {
+                ClearTable();
                 SpawnIngredient();
+            }
         }
 
         private void ClearTable()
@@ -48,7 +51,7 @@ namespace Kings_of_Knives.Scripts
 
         private void SpawnIngredient()
         {
-            _lastIngredientPrefab = Instantiate(_table.IngredientOnTable.Prefab, _tableTopPointTransform.position,
+            _lastIngredientPrefab = Instantiate(_table.IngredientOnTable.IngredientInfo.Prefab, _tableTopPointTransform.position,
                 Quaternion.identity);
         }
     }

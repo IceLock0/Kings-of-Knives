@@ -8,7 +8,7 @@ namespace Kings_of_Knives.Scripts
     {
         public event Action OnIngredientChanged;
 
-        public IngredientInfo IngredientOnTable { get; set; }
+        public IIngredient IngredientOnTable { get; set; }
         
     }
 }

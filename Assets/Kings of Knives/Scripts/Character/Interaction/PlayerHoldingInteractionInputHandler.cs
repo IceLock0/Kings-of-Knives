@@ -4,12 +4,11 @@ using UnityEngine.InputSystem;
 
 namespace Kings_of_Knives.Scripts.Character.Interaction
 {
-    public class PlayerSecondaryInteractionInputHandler : MonoBehaviour
+    public class PlayerHoldingInteractionInputHandler : MonoBehaviour
     {
         private PlayerInput _playerInput;
 
         private bool _isHoldingKey = false;
-
 
         private PlayerInteractionDeterminant _playerInteractionDeterminant;
 

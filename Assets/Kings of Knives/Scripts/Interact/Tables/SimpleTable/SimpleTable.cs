@@ -6,10 +6,8 @@ namespace Kings_of_Knives.Scripts.Tables
     {
         public override void Interact()
         {
-            if (_currentPlayerIngredient != null && _currentPlayerIngredient.IsCanPutOnSimpleTable)
-            {
-                _isCanPutOnTheTable = true;
-            }
+            if (_currentPlayerIngredient != null)
+                _isCanPutOnTheTable = _currentPlayerIngredient.IngredientInfo.IsCanPutOnSimpleTable;
             
             base.Interact();
         }

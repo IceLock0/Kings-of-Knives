@@ -1,6 +1,5 @@
 using System;
 using Kings_of_Knives.Scripts;
-using Kings_of_Knives.Scripts.Character;
 using Kings_of_Knives.Scripts.Tables;
 using UnityEngine;
 
@@ -10,8 +9,8 @@ public class ContainerTable : BaseTable
     
     public override void Interact()
     {
-        if (_currentPlayerIngredient != null && _currentPlayerIngredient.IsCanPutOnContainerTable)
-            _isCanPutOnTheTable = true;
+        if (_currentPlayerIngredient != null)
+            _isCanPutOnTheTable = _currentPlayerIngredient.IngredientInfo.IsCanPutOnContainerTable;
 
         base.Interact();
 
@@ -23,7 +22,7 @@ public class ContainerTable : BaseTable
 
     private void TakeFromContainer()
     {
-        IngredientOnTable = _storedIngredient;
+        IngredientOnTable = new Ingredient(_storedIngredient);
 
         TriggerEventFromChild();
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Kings_of_Knives.Scripts.Character
 {
@@ -16,19 +17,20 @@ namespace Kings_of_Knives.Scripts.Character
                 _instance = new PlayerInventory();
             return _instance;
         }
-
-        public event Action PlayerInventoryChanged;
         
-        private IngredientInfo _ingredient;
+        
+        public event Action PlayerInventoryChanged;
 
-        public void SetIngredient(IngredientInfo ingredient)
+        private IIngredient _ingredient;
+
+        public void SetIngredient(IIngredient ingredient)
         {
             _ingredient = ingredient;
-            
+
             PlayerInventoryChanged?.Invoke();
         }
 
-        public IngredientInfo GetIngredient()
+        public IIngredient GetIngredient()
         {
             return _ingredient;
         }

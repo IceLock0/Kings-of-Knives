@@ -1,8 +1,6 @@
 ﻿using System;
 using Kings_of_Knives.Scripts.Character;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace Kings_of_Knives.Scripts.Tables
 {
@@ -11,35 +9,37 @@ namespace Kings_of_Knives.Scripts.Tables
         public bool CanInteract { get; set; }
 
         public event Action OnIngredientChanged;
-        public IngredientInfo IngredientOnTable { get; set; }
-
+        
         private PlayerInventory _playerInventory;
-
-        protected IngredientInfo _currentPlayerIngredient;
+        
+        public IIngredient IngredientOnTable { get; set; }
+        
+        protected IIngredient _currentPlayerIngredient;
         
         protected bool _isWasBaseInteracted;
-        protected bool _isCanPutOnTheTable;
+        protected bool _isCanPutOnTheTable = false;
 
         private void OnEnable()
         {
             var playerInventory = PlayerInventory.GetInstance();
 
-            playerInventory.PlayerInventoryChanged += SetPlayerIngredient;
+            playerInventory.PlayerInventoryChanged += GetPlayerIngredient;
         }
 
         private void OnDisable()
         {
             var playerInventory = PlayerInventory.GetInstance();
 
-            playerInventory.PlayerInventoryChanged -= SetPlayerIngredient;
+            playerInventory.PlayerInventoryChanged -= GetPlayerIngredient;
         }
 
         private void Start()
         {
             _playerInventory = PlayerInventory.GetInstance();
+            
         }
 
-        private void SetPlayerIngredient()
+        private void GetPlayerIngredient()
         {
             _currentPlayerIngredient = _playerInventory.GetIngredient();
         }
@@ -51,25 +51,16 @@ namespace Kings_of_Knives.Scripts.Tables
             if (_currentPlayerIngredient != null)
             {
                 if (IngredientOnTable == null && _isCanPutOnTheTable)
+                {
                     ToTable();
+                }
             }
 
             else if (_currentPlayerIngredient == null)
             {
-                if(IngredientOnTable != null && IngredientOnTable.IsCanTake == true)
+                if(IngredientOnTable != null && IngredientOnTable.IngredientInfo.IsCanTake == true)
                     ToInventory();
             }
-        }
-
-        private void ToInventory()
-        {
-            _playerInventory.SetIngredient(IngredientOnTable);
-
-            IngredientOnTable = null;
-
-            _isWasBaseInteracted = true;
-            
-            OnIngredientChanged?.Invoke();
         }
 
         private void ToTable()
@@ -80,6 +71,17 @@ namespace Kings_of_Knives.Scripts.Tables
             
             _isWasBaseInteracted = true;
 
+            OnIngredientChanged?.Invoke();
+        }
+        
+        private void ToInventory()
+        {
+            _playerInventory.SetIngredient(IngredientOnTable);
+
+            IngredientOnTable = null;
+
+            _isWasBaseInteracted = true;
+            
             OnIngredientChanged?.Invoke();
         }
 

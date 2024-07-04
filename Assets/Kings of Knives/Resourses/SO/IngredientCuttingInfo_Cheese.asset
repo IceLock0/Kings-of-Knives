@@ -9,15 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffeb17bce5234b01934a2c8cb835c00e, type: 3}
-  m_Name: IngredientInfo_Cheese
+  m_Script: {fileID: 11500000, guid: 6eefd3e90a7943d7b5e53919d6c6742a, type: 3}
+  m_Name: IngredientCuttingInfo_Cheese
   m_EditorClassIdentifier: 
-  _output: {fileID: 11400000, guid: 4cdd30e42321bc04881831910d66edd3, type: 2}
-  _spriteIcon: {fileID: 21300000, guid: d8b0f8c9fb26e884ea3b5dfb48bfeffe, type: 3}
-  _prefab: {fileID: 714668539007663209, guid: a8ccc3e88183fff4581c0a6369f8d91a, type: 3}
-  _name: Cheese
+  _output: {fileID: 0}
+  _spriteIcon: {fileID: 0}
+  _prefab: {fileID: 8480117787147683571, guid: de58d613c65f33c4cbc84f3bc4cd0bf4, type: 3}
+  _name: Sliced Cheese
   _isCanTake: 1
   _isCanPutOnSimpleTable: 1
   _isCanPutOnContainerTable: 1
   _isCanPutOnCuttingTable: 1
   _isCanCut: 1
+  _timeToCutting: 2
