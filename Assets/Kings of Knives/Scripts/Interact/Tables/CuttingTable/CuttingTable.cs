@@ -1,54 +1,56 @@
 using System;
 using System.Collections.Generic;
-using Kings_of_Knives.Scripts;
 using Kings_of_Knives.Scripts.Tables;
 using UnityEngine;
 
-public class CuttingTable : BaseTable, IHoldingInteractable
+namespace Kings_of_Knives.Scripts.Interact.Tables.CuttingTable
 {
-    public event Action<float, float> OnHoldTimeChanged;
-
-    public override void Interact()
+    public class CuttingTable : BaseTable, IHoldingInteractable
     {
-        if (_currentPlayerIngredient != null)
-            _isCanPutOnTheTable = _currentPlayerIngredient.IngredientInfo.IsCanPutOnCuttingTable;
+        public event Action<float, float> OnHoldTimeChanged;
 
-        base.Interact();
-    }
-
-    private Dictionary<IIngredient, float> _dictionary = new Dictionary<IIngredient, float>();
-
-    public void HoldingInteract()
-    {
-        if (IngredientOnTable == null || IngredientOnTable.IngredientInfo.IsCanCut == false)
-            return;
-
-        if (IngredientOnTable.IngredientInfo.Output is not IngredientCuttingInfo ingredientCuttingInfo)
-            return;
-
-        var cuttingTime = 0.0f;
-
-        if (_dictionary.ContainsKey(IngredientOnTable))
-            cuttingTime = _dictionary[IngredientOnTable];
-        else _dictionary.Add(IngredientOnTable, cuttingTime);
-
-        var timeToCutting = ingredientCuttingInfo.TimeToCutting;
-
-        cuttingTime += Time.deltaTime;
-        
-        OnHoldTimeChanged?.Invoke(cuttingTime, timeToCutting);
-
-        if (cuttingTime >= ingredientCuttingInfo.TimeToCutting)
+        public override void Interact()
         {
-            IngredientOnTable = new Ingredient(IngredientOnTable.IngredientInfo.Output);
-            
-            TriggerEventFromChild();
+            if (_currentPlayerIngredient != null)
+                _isCanPutOnTheTable = _currentPlayerIngredient.IngredientInfo.IsCanPutOnCuttingTable;
 
-            _dictionary.Remove(IngredientOnTable);
+            base.Interact();
 
-            return;
+            if (_isWasBaseInteracted == true && IngredientOnTable == null)
+                OnHoldTimeChanged?.Invoke(0, 0);
         }
 
-        _dictionary[IngredientOnTable] = cuttingTime;
+        private Dictionary<IIngredient, float> _existedIngredients = new Dictionary<IIngredient, float>();
+
+        public void HoldingInteract()
+        {
+            if (IngredientOnTable == null || IngredientOnTable.IngredientInfo.IsCanCut == false)
+                return;
+
+            if (IngredientOnTable.IngredientInfo.Output is not IngredientCuttingInfo ingredientCuttingInfo)
+                return;
+
+            var cuttingTime = 0.0f;
+
+            if (_existedIngredients.ContainsKey(IngredientOnTable))
+                cuttingTime = _existedIngredients[IngredientOnTable];
+            else _existedIngredients.Add(IngredientOnTable, cuttingTime);
+
+            var timeToCutting = ingredientCuttingInfo.TimeToCutting;
+
+            cuttingTime += Time.deltaTime;
+
+            OnHoldTimeChanged?.Invoke(cuttingTime, timeToCutting);
+
+            if (cuttingTime >= ingredientCuttingInfo.TimeToCutting)
+            {
+                IngredientOnTable = new Ingredient(IngredientOnTable.IngredientInfo.Output);
+
+                TriggerEventFromChild();
+
+                _existedIngredients.Remove(IngredientOnTable);
+            }
+            else _existedIngredients[IngredientOnTable] = cuttingTime;
+        }
     }
 }

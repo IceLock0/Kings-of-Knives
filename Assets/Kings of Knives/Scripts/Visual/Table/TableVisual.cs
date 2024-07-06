@@ -53,6 +53,8 @@ namespace Kings_of_Knives.Scripts
         {
             _lastIngredientPrefab = Instantiate(_table.IngredientOnTable.IngredientInfo.Prefab, _tableTopPointTransform.position,
                 Quaternion.identity);
+            
+            _lastIngredientPrefab.transform.parent = transform;
         }
     }
 }

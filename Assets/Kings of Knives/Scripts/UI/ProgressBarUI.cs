@@ -1,56 +1,42 @@
-using System;
-using Kings_of_Knives.Scripts;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProgressBarUI : MonoBehaviour
+namespace Kings_of_Knives.Scripts.UI
 {
-    [SerializeField] private CuttingTable _cuttingTable;
-    
-    [SerializeField] private Image _image;
-    [SerializeField] private Image _background;
-    
-    
-    private void OnEnable()
+    public class ProgressBarUI : MonoBehaviour
     {
-        _cuttingTable.OnHoldTimeChanged += UpdateBar;
-    }
-
-    private void OnDisable()
-    {
-        _cuttingTable.OnHoldTimeChanged -= UpdateBar;
-    }
-
-    private void Start()
-    {
-        _image.fillAmount = 0.0f;
+        [SerializeField] private Image _bar;
+        [SerializeField] private Image _background;
         
-        HideBar();
-    }
-
-    private void UpdateBar(float currentCuttingTime, float maxCuttingTime)
-    {
-        _image.fillAmount = currentCuttingTime / maxCuttingTime;
-        
-        if (currentCuttingTime <= 0.0f && currentCuttingTime >= 1.0f)
+        public void UpdateBar(float currentTime, float maxTime)
         {
-            HideBar();
+            if (maxTime <= 0.0f)
+            {
+                HideBar();
+                return;
+            }
+
+            _bar.fillAmount = currentTime / maxTime;
+
+            if (_bar.fillAmount <= 0.0f || _bar.fillAmount >= 1.0f)
+                HideBar();
+            else ShowBar();
+            
         }
-        else ShowBar();
         
-    }
+        private void ShowBar()
+        {
+            _background.enabled = true;
 
-    private void HideBar()
-    {
-        _image.enabled = false;
+            _bar.enabled = true;
+        }
 
-        _background.enabled = false;
-    }
+        private void HideBar()
+        {
+            _background.enabled = false;
 
-    private void ShowBar()
-    {
-        _image.enabled = true;
-
-        _background.enabled = true;
+            _bar.enabled = false;
+        }
     }
 }
