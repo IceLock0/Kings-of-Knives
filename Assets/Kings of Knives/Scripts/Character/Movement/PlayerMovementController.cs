@@ -1,89 +1,32 @@
-﻿using System;
-using Kings_of_Knives.Scripts.Character;
-using UnityEditor;
+﻿using Kings_of_Knives.Scripts.SO.Configs;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.InputSystem;
 
-namespace Kings_of_Knives
+namespace Kings_of_Knives.Scripts.Character.Movement
 {
-    public class PlayerMovementController : MonoBehaviour
+    public class PlayerMovementController
     {
-        [Header("Character Collide Info")]
-        [SerializeField] private float _characterRadius = 4.0f;
-        [SerializeField] private float _characterHeight = 5.0f;
-        [SerializeField] private float _characterrSpeed = 0.5f;
+        private readonly PlayerConfig _playerConfig;
+        private readonly InputService _inputService;
+        private readonly Rigidbody _playerRigidbody;
 
-        private IControllable _controllable;
-
-        private Vector3 _direction;
-
-        private PlayerInput _playerInput;
+        public PlayerMovementController(PlayerConfig playerConfig, InputService inputService, Rigidbody playerRigidbody)
+        {
+            _playerConfig = playerConfig;
+            _inputService = inputService;
+            _playerRigidbody = playerRigidbody;
+        }
         
-        private void Awake()
+        public void TryToMove()
         {
-            _controllable = GetComponent<IControllable>();
-
-            if (_controllable == null)
-            {
-                Debug.Log("IControllable component not founded");
-            }
-
-            _playerInput = new PlayerInput();
-            _playerInput.Enable();
+            _playerRigidbody.linearVelocity = ReadInput();
         }
 
-        private void Update()
+        private Vector3 ReadInput()
         {
-            Move();
-        }
-
-        private Vector3 ReadMove()
-        {
-            var inputDirection = _playerInput.Gameplay.Movement.ReadValue<Vector2>().normalized;
-            var direction = new Vector3(inputDirection.x, 0, inputDirection.y);
-
-            return direction;
-        }
-
-        private bool IsCanMove()
-        {
-            _direction = ReadMove();
+            var direction = _inputService.Gameplay.Movement.ReadValue<Vector2>().normalized * _playerConfig.LinearSpeed * Time.deltaTime;
             
-            bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * _characterHeight,
-                _characterRadius, _direction, _characterrSpeed);
-
-            if (!canMove)
-            {
-                var directionX = new Vector3(_direction.x, 0, 0).normalized;
-                canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * _characterHeight,
-                    _characterRadius, directionX, _characterrSpeed);
-
-                if (canMove)
-                {
-                    _direction = directionX;
-                }
-                else
-                {
-                    var directionZ = new Vector3(0, 0, _direction.z).normalized;
-                    canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * _characterHeight,
-                        _characterRadius, directionZ, _characterrSpeed);
-
-                    if (canMove)
-                    {
-                        _direction = directionZ;
-                    }
-                }
-            }
-
-            return canMove;
+            return new Vector3(direction.x, 0, direction.y);
         }
-
-        private void Move()
-        {
-            if(IsCanMove())
-                _controllable.Move(_direction);
-        }
-
-        public Vector3 GetDirection() => _direction;
     }
 }
