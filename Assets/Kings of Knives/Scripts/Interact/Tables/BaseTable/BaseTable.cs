@@ -1,6 +1,7 @@
 ﻿using System;
 using Kings_of_Knives.Scripts.Character;
 using UnityEngine;
+using Zenject;
 
 namespace Kings_of_Knives.Scripts.Tables
 {
@@ -10,7 +11,7 @@ namespace Kings_of_Knives.Scripts.Tables
 
         public event Action OnIngredientChanged;
         
-        private PlayerInventory _playerInventory;
+       [Inject] private PlayerInventory _playerInventory;
         
         public IIngredient IngredientOnTable { get; set; }
         
@@ -21,27 +22,17 @@ namespace Kings_of_Knives.Scripts.Tables
 
         private void OnEnable()
         {
-            var playerInventory = PlayerInventory.GetInstance();
-
-            playerInventory.PlayerInventoryChanged += GetPlayerIngredient;
+            _playerInventory.IngredientChanged += GetPlayerIngredient;
         }
 
         private void OnDisable()
         {
-            var playerInventory = PlayerInventory.GetInstance();
-
-            playerInventory.PlayerInventoryChanged -= GetPlayerIngredient;
+            _playerInventory.IngredientChanged -= GetPlayerIngredient;
         }
 
-        private void Start()
+        private void GetPlayerIngredient(IIngredient ingredient)
         {
-            _playerInventory = PlayerInventory.GetInstance();
-            
-        }
-
-        private void GetPlayerIngredient()
-        {
-            _currentPlayerIngredient = _playerInventory.GetIngredient();
+            _currentPlayerIngredient = ingredient;
         }
 
         public virtual void Interact()
@@ -67,7 +58,7 @@ namespace Kings_of_Knives.Scripts.Tables
         {
             IngredientOnTable = _currentPlayerIngredient;
                
-            _playerInventory.SetIngredient(null);
+            _playerInventory.ChangeIngredient(null);
             
             _isWasBaseInteracted = true;
 
@@ -76,7 +67,7 @@ namespace Kings_of_Knives.Scripts.Tables
         
         private void ToInventory()
         {
-            _playerInventory.SetIngredient(IngredientOnTable);
+            _playerInventory.ChangeIngredient(IngredientOnTable);
 
             IngredientOnTable = null;
 

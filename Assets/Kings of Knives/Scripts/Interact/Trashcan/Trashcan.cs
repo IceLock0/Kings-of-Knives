@@ -1,21 +1,17 @@
 using Kings_of_Knives.Scripts;
 using Kings_of_Knives.Scripts.Character;
 using UnityEngine;
+using Zenject;
 
 public class Trashcan : MonoBehaviour, IInteractable
 {
     public bool CanInteract { get; set; }
 
-    private PlayerInventory _playerInventory;
-    
-    private void Awake()
-    {
-        _playerInventory = PlayerInventory.GetInstance();
-    }
+   [Inject] private PlayerInventory _playerInventory;
 
-    public void Interact()
+   public void Interact()
     {
-        if (_playerInventory.GetIngredient() != null)
+        if (_playerInventory.Ingredient != null)
         {
             RemoveIngredient();
         }
@@ -23,6 +19,6 @@ public class Trashcan : MonoBehaviour, IInteractable
 
     private void RemoveIngredient()
     {
-        _playerInventory.SetIngredient(null);
+        _playerInventory.ChangeIngredient(null);
     }
 }
