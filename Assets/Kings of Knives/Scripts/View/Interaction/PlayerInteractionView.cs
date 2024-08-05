@@ -11,7 +11,7 @@ namespace Kings_of_Knives.Scripts.Character.Interaction
         private PlayerInteractionController _controller;
         private InputService _inputService;
         private InteractionService _interactionInput;
-        
+
         [Inject]
         public void Initialize(InputService inputService, PlayerConfig playerConfig, InteractionService interactionService)
         {
