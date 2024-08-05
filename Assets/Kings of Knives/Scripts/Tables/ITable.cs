@@ -6,9 +6,11 @@ namespace Kings_of_Knives.Scripts
 {
     public interface ITable : IInteractable
     {
-        public event Action OnIngredientChanged;
+        public event Action IngredientChanged;
 
-        public IIngredient IngredientOnTable { get; set; }
-        
+        public IIngredient Ingredient { get; }
+
+        public void ChangeIngredient(IIngredient ingredient);
+
     }
 }

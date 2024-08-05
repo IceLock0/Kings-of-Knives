@@ -11,12 +11,12 @@ namespace Kings_of_Knives.Scripts.Interact.Tables.CuttingTable
 
         public override void Interact()
         {
-            if (_currentPlayerIngredient != null)
-                _isCanPutOnTheTable = _currentPlayerIngredient.IngredientInfo.IsCanPutOnCuttingTable;
+            if (CurrentPlayerIngredient != null)
+                IsCanPutOnTheTable = CurrentPlayerIngredient.IngredientInfo.IsCanPutOnCuttingTable;
 
             base.Interact();
 
-            if (_isWasBaseInteracted == true && IngredientOnTable == null)
+            if (IsWasBaseInteracted == true && Ingredient == null)
                 OnHoldTimeChanged?.Invoke(0, 0);
         }
 
@@ -24,17 +24,17 @@ namespace Kings_of_Knives.Scripts.Interact.Tables.CuttingTable
 
         public void HoldingInteract()
         {
-            if (IngredientOnTable == null || IngredientOnTable.IngredientInfo.IsCanCut == false)
+            if (Ingredient == null || Ingredient.IngredientInfo.IsCanCut == false)
                 return;
 
-            if (IngredientOnTable.IngredientInfo.Output is not IngredientCuttingInfo ingredientCuttingInfo)
+            if (Ingredient.IngredientInfo.Output is not IngredientCuttingInfo ingredientCuttingInfo)
                 return;
 
             var cuttingTime = 0.0f;
 
-            if (_existedIngredients.ContainsKey(IngredientOnTable))
-                cuttingTime = _existedIngredients[IngredientOnTable];
-            else _existedIngredients.Add(IngredientOnTable, cuttingTime);
+            if (_existedIngredients.ContainsKey(Ingredient))
+                cuttingTime = _existedIngredients[Ingredient];
+            else _existedIngredients.Add(Ingredient, cuttingTime);
 
             var timeToCutting = ingredientCuttingInfo.TimeToCutting;
 
@@ -44,13 +44,13 @@ namespace Kings_of_Knives.Scripts.Interact.Tables.CuttingTable
 
             if (cuttingTime >= ingredientCuttingInfo.TimeToCutting)
             {
-                IngredientOnTable = new Ingredient(IngredientOnTable.IngredientInfo.Output);
+                Ingredient = new Ingredient(Ingredient.IngredientInfo.Output);
 
                 TriggerEventFromChild();
 
-                _existedIngredients.Remove(IngredientOnTable);
+                _existedIngredients.Remove(Ingredient);
             }
-            else _existedIngredients[IngredientOnTable] = cuttingTime;
+            else _existedIngredients[Ingredient] = cuttingTime;
         }
     }
 }

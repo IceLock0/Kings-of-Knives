@@ -2,6 +2,6 @@
 {
     public interface IIngredient
     {
-        public IngredientInfo IngredientInfo { get; set; }
+        public IngredientInfo IngredientInfo { get; }
     }
 }

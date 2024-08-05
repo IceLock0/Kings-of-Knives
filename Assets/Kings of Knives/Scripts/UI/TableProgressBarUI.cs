@@ -1,10 +1,8 @@
-using System;
 using Kings_of_Knives.Scripts;
-using Kings_of_Knives.Scripts.Interact.Tables.CuttingTable;
 using Kings_of_Knives.Scripts.Tables;
 using Kings_of_Knives.Scripts.UI;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class TableProgressBarUI : ProgressBarUI
 {

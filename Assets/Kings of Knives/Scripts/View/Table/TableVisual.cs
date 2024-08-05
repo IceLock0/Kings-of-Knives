@@ -13,17 +13,20 @@ namespace Kings_of_Knives.Scripts
 
         private void OnEnable()
         {
-            _table.OnIngredientChanged += ChangeIngredient;
+            _table.IngredientChanged += ChangeIngredient;
         }
 
         private void OnDisable()
         {
-            _table.OnIngredientChanged -= ChangeIngredient;
+            _table.IngredientChanged -= ChangeIngredient;
         }
 
         private void Awake()
         {
             _table = GetComponent<ITable>();
+            
+            if(_table == null)
+                throw new NullReferenceException("ITable component not founded");
         }
 
         private void Start()
@@ -33,10 +36,10 @@ namespace Kings_of_Knives.Scripts
 
         private void ChangeIngredient()
         {
-            if (_table.IngredientOnTable == null)
+            if (_table.Ingredient == null)
                 ClearTable();
 
-            if (_table.IngredientOnTable != null && _table.IngredientOnTable.IngredientInfo.Prefab != _lastIngredientPrefab)
+            if (_table.Ingredient != null && _table.Ingredient.IngredientInfo.Prefab != _lastIngredientPrefab)
             {
                 ClearTable();
                 SpawnIngredient();
@@ -51,7 +54,7 @@ namespace Kings_of_Knives.Scripts
 
         private void SpawnIngredient()
         {
-            _lastIngredientPrefab = Instantiate(_table.IngredientOnTable.IngredientInfo.Prefab, _tableTopPointTransform.position,
+            _lastIngredientPrefab = Instantiate(_table.Ingredient.IngredientInfo.Prefab, _tableTopPointTransform.position,
                 Quaternion.identity);
             
             _lastIngredientPrefab.transform.parent = transform;

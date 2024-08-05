@@ -5,9 +5,7 @@ using Zenject;
 
 public class Trashcan : MonoBehaviour, IInteractable
 {
-    public bool CanInteract { get; set; }
-
-   [Inject] private PlayerInventory _playerInventory;
+    [Inject] private PlayerInventory _playerInventory;
 
    public void Interact()
     {

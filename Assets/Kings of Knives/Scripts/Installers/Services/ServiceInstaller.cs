@@ -9,6 +9,7 @@ namespace Kings_of_Knives.Scripts.Installers.Services
         {
             BindInputService();
             BindInteractionSerivce();
+            BindHoldingInteractionService();
         }
 
         private void BindInputService()
@@ -19,6 +20,11 @@ namespace Kings_of_Knives.Scripts.Installers.Services
         private void BindInteractionSerivce()
         {
             Container.Bind<InteractionService>().AsSingle().NonLazy();
+        }
+
+        private void BindHoldingInteractionService()
+        {
+            Container.Bind<HoldingInteractionService>().AsSingle().NonLazy();
         }
     }
 }

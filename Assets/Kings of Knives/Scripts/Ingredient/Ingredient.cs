@@ -11,6 +11,5 @@ namespace Kings_of_Knives.Scripts
         {
             IngredientInfo = ingredientInfo;
         }
-        
     }
 }
