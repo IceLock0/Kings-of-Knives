@@ -5,15 +5,15 @@ namespace Kings_of_Knives.Scripts.Character
 {
     public class PlayerInventory
     {
-        public IIngredient Ingredient { get; private set; }
+        public Ingredient Ingredient { get; private set; }
 
-        public event Action<IIngredient> IngredientChanged;
+        public event Action IngredientChanged;
 
-        public void ChangeIngredient(IIngredient ingredient)
+        public void ChangeIngredient(Ingredient ingredient)
         {
             Ingredient = ingredient;
 
-            IngredientChanged?.Invoke(Ingredient);
+            IngredientChanged?.Invoke();
         }
     }
 }

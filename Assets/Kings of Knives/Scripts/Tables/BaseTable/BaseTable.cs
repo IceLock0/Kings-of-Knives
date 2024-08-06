@@ -1,5 +1,6 @@
 ﻿using System;
 using Kings_of_Knives.Scripts.Character;
+using Kings_of_Knives.Scripts.Services.Fabric.Ingredient;
 using UnityEngine;
 using Zenject;
 
@@ -9,9 +10,9 @@ namespace Kings_of_Knives.Scripts.Tables
     {
         public event Action IngredientChanged;
         
-        public IIngredient Ingredient { get; set; }
+        public Ingredient Ingredient { get; set; }
 
-        protected IIngredient CurrentPlayerIngredient;
+        protected Ingredient CurrentPlayerIngredient;
         
         protected bool IsWasBaseInteracted = false;
         protected bool IsCanPutOnTheTable = false;
@@ -43,7 +44,7 @@ namespace Kings_of_Knives.Scripts.Tables
            }
        }
        
-       public void ChangeIngredient(IIngredient ingredient)
+       public void ChangeIngredient(Ingredient ingredient)
        {
            Ingredient = ingredient;
 
@@ -62,9 +63,9 @@ namespace Kings_of_Knives.Scripts.Tables
             _playerInventory.IngredientChanged -= GetPlayerIngredient;
         }
 
-        private void GetPlayerIngredient(IIngredient ingredient)
+        private void GetPlayerIngredient()
         {
-            CurrentPlayerIngredient = ingredient;
+            CurrentPlayerIngredient = _playerInventory.Ingredient;
         }
         
 

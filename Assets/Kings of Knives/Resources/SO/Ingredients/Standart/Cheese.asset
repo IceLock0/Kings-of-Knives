@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffeb17bce5234b01934a2c8cb835c00e, type: 3}
+  m_Name: Cheese
+  m_EditorClassIdentifier: 
+  _output: {fileID: 11400000, guid: 4cdd30e42321bc04881831910d66edd3, type: 2}
+  _prefab: {fileID: 714668539007663209, guid: 427ec9646691a2543a88e927960f5026, type: 3}
+  _isCanTake: 1
+  _isCanPutOnSimpleTable: 1
+  _isCanPutOnContainerTable: 1
+  _isCanPutOnCuttingTable: 1
+  _isCanCut: 1

@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Kings_of_Knives.Scripts
 {
-    public class Ingredient : IIngredient
+    public class Ingredient : MonoBehaviour
     {
         public IngredientInfo IngredientInfo { get; set; }
 
-        public Ingredient(IngredientInfo ingredientInfo)
+        public void SetIngredientInfo(IngredientInfo ingredientInfo)
         {
             IngredientInfo = ingredientInfo;
         }

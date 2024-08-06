@@ -7,12 +7,8 @@ namespace Kings_of_Knives.Scripts
     public class IngredientInfo : ScriptableObject
     {
         [SerializeField] private IngredientInfo _output;
-        
-        [SerializeField] private Sprite _spriteIcon;
         [SerializeField] private GameObject _prefab;
-        
-        [SerializeField] private string _name;
-        
+
         [SerializeField] private bool _isCanTake;
         [SerializeField] private bool _isCanPutOnSimpleTable;
         [SerializeField] private bool _isCanPutOnContainerTable;
@@ -21,12 +17,8 @@ namespace Kings_of_Knives.Scripts
         
         public IngredientInfo Output => _output;
 
-        public Sprite SpriteIcon => _spriteIcon;
-
         public GameObject Prefab => _prefab;
-        
-        public string Name => _name;
-        
+
         public bool IsCanTake => _isCanTake;
         public bool IsCanPutOnSimpleTable => _isCanPutOnSimpleTable;
         public bool IsCanPutOnContainerTable => _isCanPutOnContainerTable;

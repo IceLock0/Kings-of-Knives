@@ -40,25 +40,21 @@ namespace Kings_of_Knives.Scripts
 
         public void TryToInteract()
         {
-            CheckLastInteract();
+            if (_lastInteractable == null)
+                return;
 
             _lastInteractable.Interact();
         }
 
         public void TryToHoldingInteract()
         {
-            CheckLastInteract();
+            if (_lastInteractable == null)
+                return;
 
             if (_lastInteractable is IHoldingInteractable holdingInteractable)
                 holdingInteractable.HoldingInteract();
         }
 
-        private void CheckLastInteract()
-        {
-            if (_lastInteractable == null)
-                throw new NullReferenceException("No objects to interact with");
-        }
-        
         private void UpdateCurrentDirection()
         {
             Vector3 newDirection = GetCurrentDirectionToVector3();

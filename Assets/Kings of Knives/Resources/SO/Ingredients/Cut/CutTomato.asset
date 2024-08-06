@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eefd3e90a7943d7b5e53919d6c6742a, type: 3}
+  m_Name: CutTomato
+  m_EditorClassIdentifier: 
+  _output: {fileID: 0}
+  _prefab: {fileID: 1294178943963676609, guid: de49e97ba624cf040b6ff41163a3ebbd, type: 3}
+  _isCanTake: 1
+  _isCanPutOnSimpleTable: 1
+  _isCanPutOnContainerTable: 1
+  _isCanPutOnCuttingTable: 1
+  _isCanCut: 1
+  _timeToCutting: 4

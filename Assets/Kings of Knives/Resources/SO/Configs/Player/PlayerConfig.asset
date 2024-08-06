@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c4ed82a29d4e0e8e24a5d53cace077, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  _linearSpeed: 2000
-  _angularSpeed: 1500
+  _linearSpeed: 5000
+  _angularSpeed: 1000
   _interactDistance: 2

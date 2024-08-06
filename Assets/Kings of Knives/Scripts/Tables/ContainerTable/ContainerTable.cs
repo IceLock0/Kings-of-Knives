@@ -1,12 +1,17 @@
+using Kings_of_Knives.Scripts.Services.Fabric.Ingredient;
 using Kings_of_Knives.Scripts.Tables;
 using UnityEngine;
+using Zenject;
 
 namespace Kings_of_Knives.Scripts.Interact.Tables.ContainerTable
 {
     public class ContainerTable : BaseTable
     {
-        [SerializeField] private IngredientInfo _storedIngredient;
-    
+        [SerializeField] private IngredientInfo _storedIngredientInfo;
+        [SerializeField] private Transform _spawnPoint;
+        
+        [Inject] private IIngredientFabric _ingredientFabric;
+        
         public override void Interact()
         {
             if (CurrentPlayerIngredient != null)
@@ -22,8 +27,7 @@ namespace Kings_of_Knives.Scripts.Interact.Tables.ContainerTable
 
         private void TakeFromContainer()
         {
-            Ingredient = new Ingredient(_storedIngredient);
-
+            Ingredient = _ingredientFabric.CreateIngredientFromSO(_storedIngredientInfo, _spawnPoint.position, transform);
             TriggerEventFromChild();
         }
     }
