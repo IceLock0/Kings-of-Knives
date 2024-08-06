@@ -3,6 +3,7 @@ using Kings_of_Knives.Scripts.Services;
 using Kings_of_Knives.Scripts.Services.Fabric.Ingredient;
 using Kings_of_Knives.Scripts.Services.IngredientDestroyer;
 using Kings_of_Knives.Scripts.Services.ProgressSavers;
+using Kings_of_Knives.Scripts.Tables;
 using UnityEngine;
 using Zenject;
 
@@ -20,6 +21,7 @@ namespace Kings_of_Knives.Scripts.Installers.Services
             BindIngredientFabricService();
             BindCuttingProgressSaverService();
             BindIngredientDestroyerService();
+            BindFryingProgressSaverService();
         }
 
         private void BindInputService()
@@ -47,10 +49,10 @@ namespace Kings_of_Knives.Scripts.Installers.Services
             Container.Bind<IProgressSaverService<Ingredient>>().To<CuttingProgressSaverService>().AsSingle().WhenInjectedInto<CuttingTable>();
         }
 
-        // private void BindCuttingProgressSaverService()
-        // {
-        //     Container.Bind<IProgressSaverService<Ingredient>>().To<FryProgressSaverService>().AsSingle().WhenInjectedInto<CuttingTable>();
-        // }
+        private void BindFryingProgressSaverService()
+        {
+            Container.Bind<IProgressSaverService<Ingredient>>().To<FryProgressSaverService>().AsSingle().WhenInjectedInto<FryingTable>();
+        }
         
         private void BindIngredientDestroyerService()
         {

@@ -13,7 +13,10 @@ namespace Kings_of_Knives.Scripts
         [SerializeField] private bool _isCanPutOnSimpleTable;
         [SerializeField] private bool _isCanPutOnContainerTable;
         [SerializeField] private bool _isCanPutOnCuttingTable;
+        [SerializeField] private bool _isCanPutOnFryingTable;
+        
         [SerializeField] private bool _isCanCut;
+        [SerializeField] private bool _isCanFry;
         
         public IngredientInfo Output => _output;
 
@@ -23,6 +26,9 @@ namespace Kings_of_Knives.Scripts
         public bool IsCanPutOnSimpleTable => _isCanPutOnSimpleTable;
         public bool IsCanPutOnContainerTable => _isCanPutOnContainerTable;
         public bool IsCanPutOnCuttingTable => _isCanPutOnCuttingTable;
+        public bool IsCanPutOnFryingTable => _isCanPutOnFryingTable;
+        
         public bool IsCanCut => _isCanCut;
+        public bool IsCanFry => _isCanFry;
     }
 }

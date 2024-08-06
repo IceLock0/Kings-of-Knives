@@ -18,7 +18,7 @@ namespace Kings_of_Knives.Scripts.Character.Movement
             _inputService = inputService;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             _controller.TryToMove();
         }

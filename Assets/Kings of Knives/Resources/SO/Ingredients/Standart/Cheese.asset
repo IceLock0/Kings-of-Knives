@@ -18,4 +18,6 @@ MonoBehaviour:
   _isCanPutOnSimpleTable: 1
   _isCanPutOnContainerTable: 1
   _isCanPutOnCuttingTable: 1
+  _isCanPutOnFryingTable: 0
   _isCanCut: 1
+  _isCanFry: 0

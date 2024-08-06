@@ -13,18 +13,14 @@ namespace Kings_of_Knives.Scripts.Interact.Tables.CuttingTable
 {
     public class CuttingTable : BaseTable, IHoldingInteractable
     {
-         private IProgressSaverService<Ingredient> _cuttingProgressSaverService;
-         private IIngredientFabric _ingredientFabric;
-         private IngredientDestroyerService _ingredientDestroyerService;
+        private IProgressSaverService<Ingredient> _cuttingProgressSaverService;
 
         [Inject]
-        public void Initialize(IProgressSaverService<Ingredient> cuttingProgressSaverService, IIngredientFabric ingredientFabric, IngredientDestroyerService ingredientDestroyerService)
+        public void Initialize(IProgressSaverService<Ingredient> cuttingProgressSaverService)
         {
             _cuttingProgressSaverService = cuttingProgressSaverService;
-            _ingredientFabric = ingredientFabric;
-            _ingredientDestroyerService = ingredientDestroyerService;
         }
-        
+
         public override void Interact()
         {
             if (CurrentPlayerIngredient != null)
@@ -46,9 +42,9 @@ namespace Kings_of_Knives.Scripts.Interact.Tables.CuttingTable
 
             if (progressBarUI == null)
                 throw new NullReferenceException("Progress Bar UI component not found");
-            
+
             progressBarUI.UpdateBar(cuttingTime, timeToCutting);
-            
+
             cuttingTime += Time.deltaTime;
             _cuttingProgressSaverService.SetProgress(Ingredient, cuttingTime);
 
@@ -61,13 +57,8 @@ namespace Kings_of_Knives.Scripts.Interact.Tables.CuttingTable
 
         private void CompleteCutting()
         {
-            _ingredientDestroyerService.DestroyIngredient(Ingredient);
-            
-            Ingredient = _ingredientFabric.CreateIngredientFromSO(Ingredient.IngredientInfo.Output,
-                Ingredient.transform.position, Ingredient.transform.parent);
+            ReplaceIngredientByCook();
 
-            TriggerEventFromChild();
-            
             _cuttingProgressSaverService.RemoveProgress(Ingredient);
         }
 

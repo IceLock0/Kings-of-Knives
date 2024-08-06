@@ -1,6 +1,7 @@
 ﻿using System;
 using Kings_of_Knives.Scripts.Character;
 using Kings_of_Knives.Scripts.Services.Fabric.Ingredient;
+using Kings_of_Knives.Scripts.Services.IngredientDestroyer;
 using UnityEngine;
 using Zenject;
 
@@ -18,11 +19,15 @@ namespace Kings_of_Knives.Scripts.Tables
         protected bool IsCanPutOnTheTable = false;
         
         private PlayerInventory _playerInventory;
-
+        private IngredientDestroyerService _ingredientDestroyerService;
+        private IIngredientFabric _ingredientFabric;
+        
         [Inject]
-       public void Initialize(PlayerInventory playerInventory)
+       public void Initialize(PlayerInventory playerInventory, IngredientDestroyerService ingredientDestroyerService, IIngredientFabric ingredientFabric)
        {
            _playerInventory = playerInventory;
+           _ingredientDestroyerService = ingredientDestroyerService;
+           _ingredientFabric = ingredientFabric;
        }
        
        public virtual void Interact()
@@ -51,6 +56,21 @@ namespace Kings_of_Knives.Scripts.Tables
            IngredientChanged?.Invoke();
            
            IsWasBaseInteracted = true;
+       }
+       
+       protected void TriggerEventFromChild()
+       {
+           IngredientChanged?.Invoke();
+       }
+
+       protected void ReplaceIngredientByCook()
+       {
+           _ingredientDestroyerService.DestroyIngredient(Ingredient);
+            
+           Ingredient = _ingredientFabric.CreateIngredientFromSO(Ingredient.IngredientInfo.Output,
+               Ingredient.transform.position, Ingredient.transform.parent);
+
+           IngredientChanged?.Invoke();
        }
        
        private void OnEnable()
@@ -82,10 +102,6 @@ namespace Kings_of_Knives.Scripts.Tables
 
             ChangeIngredient(null);
         }
-
-        protected void TriggerEventFromChild()
-        {
-            IngredientChanged?.Invoke();
-        }
+        
     }
 }

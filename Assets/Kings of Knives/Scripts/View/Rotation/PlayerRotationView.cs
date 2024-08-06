@@ -19,7 +19,7 @@ namespace Kings_of_Knives.Scripts.Character
             _controller = new PlayerRotationController(playerConfig, inputService, GetComponent<Transform>());
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             _controller.TryRotate();
         }

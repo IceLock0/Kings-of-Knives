@@ -24,7 +24,7 @@ namespace Kings_of_Knives.Scripts.Character.Movement
 
         private Vector3 ReadInput()
         {
-            var direction = _inputService.Gameplay.Movement.ReadValue<Vector2>().normalized * _playerConfig.LinearSpeed * Time.deltaTime;
+            var direction = _inputService.Gameplay.Movement.ReadValue<Vector2>().normalized * _playerConfig.LinearSpeed;
             
             return new Vector3(direction.x, 0, direction.y);
         }

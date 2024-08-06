@@ -31,7 +31,7 @@ namespace Kings_of_Knives.Scripts.Character.Rotation
                 return _playerTransform.rotation;
             
             var lookDirection = Quaternion.LookRotation(new Vector3(input.x, 0 , input.y), Vector3.up);
-            var targetRotation = Quaternion.RotateTowards(_playerTransform.rotation, lookDirection, _playerConfig.AngularSpeed * Time.deltaTime);
+            var targetRotation = Quaternion.RotateTowards(_playerTransform.rotation, lookDirection, _playerConfig.AngularSpeed );
 
             return targetRotation;
         }
