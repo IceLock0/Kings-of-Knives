@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CutTomato
   m_EditorClassIdentifier: 
   _output: {fileID: 0}
-  _prefab: {fileID: 1664830548598851544, guid: de49e97ba624cf040b6ff41163a3ebbd, type: 3}
+  _prefab: {fileID: 6096920749883488645, guid: de49e97ba624cf040b6ff41163a3ebbd, type: 3}
   _isCanTake: 1
   _isCanPutOnSimpleTable: 1
   _isCanPutOnContainerTable: 1

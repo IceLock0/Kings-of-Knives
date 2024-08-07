@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CutCheese
   m_EditorClassIdentifier: 
   _output: {fileID: 0}
-  _prefab: {fileID: 1102240815343200949, guid: 5926fc71b78f7644cba4401574323d0d, type: 3}
+  _prefab: {fileID: 7991779708283503467, guid: 5926fc71b78f7644cba4401574323d0d, type: 3}
   _isCanTake: 1
   _isCanPutOnSimpleTable: 1
   _isCanPutOnContainerTable: 1

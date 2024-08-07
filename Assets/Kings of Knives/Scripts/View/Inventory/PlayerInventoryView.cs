@@ -16,8 +16,10 @@ namespace Kings_of_Knives.Scripts.View.Inventory
             if (_playerInventory.Ingredient == null)
                 return;
 
-            _playerInventory.Ingredient.transform.position = _holdingPoint.position;
-            _playerInventory.Ingredient.transform.parent = _holdingPoint;
+            var playerTransform = _playerInventory.Ingredient.transform;
+            
+            playerTransform.position = _holdingPoint.position;
+            playerTransform.parent = transform;
         }
         
         private void OnEnable()

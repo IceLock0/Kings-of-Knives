@@ -8,8 +8,7 @@ namespace Kings_of_Knives.Scripts.Interact.Tables.ContainerTable
     public class ContainerTable : BaseTable
     {
         [SerializeField] private IngredientInfo _storedIngredientInfo;
-        [SerializeField] private Transform _spawnPoint;
-        
+
         [Inject] private IIngredientFabric _ingredientFabric;
         
         public override void Interact()
@@ -27,7 +26,7 @@ namespace Kings_of_Knives.Scripts.Interact.Tables.ContainerTable
 
         private void TakeFromContainer()
         {
-            Ingredient = _ingredientFabric.CreateIngredientFromSO(_storedIngredientInfo, _spawnPoint.position, transform);
+            Ingredient = _ingredientFabric.CreateIngredientFromSO(_storedIngredientInfo, Vector3.zero);
             TriggerEventFromChild();
         }
     }

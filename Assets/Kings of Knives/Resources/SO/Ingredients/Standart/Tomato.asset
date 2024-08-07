@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tomato
   m_EditorClassIdentifier: 
   _output: {fileID: 11400000, guid: b03b0f4791d2b1c4683d628adfcea949, type: 2}
-  _prefab: {fileID: 7611084140552169679, guid: 0ae73f28da62db34c9f18b6326c6dbe3, type: 3}
+  _prefab: {fileID: 4180009462412407802, guid: 0ae73f28da62db34c9f18b6326c6dbe3, type: 3}
   _isCanTake: 1
   _isCanPutOnSimpleTable: 1
   _isCanPutOnContainerTable: 1
