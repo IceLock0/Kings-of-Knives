@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FryCutlet
   m_EditorClassIdentifier: 
   _output: {fileID: 0}
-  _prefab: {fileID: 974540705868242841, guid: 6bac65f1281408f46a41df324cfeb60e, type: 3}
+  _prefab: {fileID: 2554520561526781706, guid: 6bac65f1281408f46a41df324cfeb60e, type: 3}
   _isCanTake: 1
   _isCanPutOnSimpleTable: 1
   _isCanPutOnContainerTable: 1
@@ -21,4 +21,4 @@ MonoBehaviour:
   _isCanPutOnFryingTable: 0
   _isCanCut: 0
   _isCanFry: 0
-  _timeToFrying: 3
+  _timeToFrying: 5

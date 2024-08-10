@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffeb17bce5234b01934a2c8cb835c00e, type: 3}
+  m_Name: Bread
+  m_EditorClassIdentifier: 
+  _output: {fileID: 0}
+  _prefab: {fileID: 3398187373154863725, guid: 55d3f9410f316d446bf3e905128ee10c, type: 3}
+  _isCanTake: 1
+  _isCanPutOnSimpleTable: 1
+  _isCanPutOnContainerTable: 1
+  _isCanPutOnCuttingTable: 0
+  _isCanPutOnFryingTable: 0
+  _isCanCut: 0
+  _isCanFry: 0
