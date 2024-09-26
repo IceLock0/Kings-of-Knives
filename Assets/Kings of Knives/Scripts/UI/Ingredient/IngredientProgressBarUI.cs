@@ -9,11 +9,6 @@ namespace Kings_of_Knives.Scripts.UI.Ingredient
         [SerializeField] private Image _bar;
         [SerializeField] private Image _background;
         
-        private void OnEnable()
-        {
-            Hide();
-        }
-
         public void UpdateBar(float time, float maxTime)
         {
             if (time >= maxTime)
@@ -25,6 +20,20 @@ namespace Kings_of_Knives.Scripts.UI.Ingredient
             
             Show();
             _bar.fillAmount = time / maxTime;
+        }
+
+        private void Update()
+        {
+            Debug.Log($"{Camera.main == null}");
+            
+            if (Camera.main != null)
+                transform.LookAt(Camera.main.transform);
+                
+        }
+        
+        private void OnEnable()
+        {
+            Hide();
         }
 
         private void Show()

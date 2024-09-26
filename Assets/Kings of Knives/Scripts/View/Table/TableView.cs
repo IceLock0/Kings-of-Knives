@@ -1,5 +1,6 @@
 ﻿using System;
 using Kings_of_Knives.Scripts.Character;
+using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
@@ -24,10 +25,11 @@ namespace Kings_of_Knives.Scripts.View
             if (_table.Ingredient == null)
                 return;
 
-            var tableTransform = _table.Ingredient.transform;
+            var ingredientTransform = _table.Ingredient.transform;
             
-            tableTransform.position = _holdingPoint.position;
-            tableTransform.parent = transform;
+            ingredientTransform.position = _holdingPoint.position;
+            ingredientTransform.parent = transform;
+            ingredientTransform.rotation = quaternion.identity;
         }
         
         private void OnEnable()
